@@ -13,7 +13,7 @@ class SocialGroupInviteVBOConfirmAction extends ConfirmAction {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $view_id = 'social_group_invitations', $display_id = 'page_1') {
+  public function buildForm(array $form, FormStateInterface $form_state, $view_id = 'social_group_invitations', $display_id = 'page_1'): array {
     $form = parent::buildForm($form, $form_state, $view_id, $display_id);
     $form_data = $this->getFormData($view_id, $display_id);
 

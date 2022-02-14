@@ -3,7 +3,9 @@
 namespace Drupal\social_group_invite\Access;
 
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Routing\RouteMatch;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\group\Entity\GroupInterface;
 use Drupal\views\Views;
@@ -17,7 +19,7 @@ class SocialGroupInviteVBOAccess extends ViewsBulkOperationsAccess {
   /**
    * {@inheritdoc}
    */
-  public function access(AccountInterface $account, RouteMatch $routeMatch) {
+  public function access(AccountInterface $account, RouteMatch $routeMatch): AccessResultInterface {
     $parameters = [
       'view_id' => 'social_group_invitations',
       'display_id' => 'page_1',
@@ -27,6 +29,7 @@ class SocialGroupInviteVBOAccess extends ViewsBulkOperationsAccess {
 
     if ($group instanceof GroupInterface) {
       if ($view = Views::getView($parameters['view_id'])) {
+        // @phpstan-ignore-next-line
         $view->group = $group;
         if ($view->access($parameters['display_id'], $account)) {
           return AccessResult::allowed();
@@ -36,13 +39,17 @@ class SocialGroupInviteVBOAccess extends ViewsBulkOperationsAccess {
 
     $route = $routeMatch->getRouteObject();
 
+    if (!($route instanceof RouteMatchInterface)) {
+      return AccessResult::forbidden();
+    }
+
     foreach ($parameters as $key => $value) {
       $route->setDefault($key, $value);
     }
 
     $parameters = $parameters + $routeMatch->getParameters()->all();
 
-    $routeMatch = new RouteMatch($routeMatch->getRouteName(), $route, $parameters, $parameters);
+    $routeMatch = new RouteMatch((string) $routeMatch->getRouteName(), $route, $parameters, $parameters);
 
     return parent::access($account, $routeMatch);
   }

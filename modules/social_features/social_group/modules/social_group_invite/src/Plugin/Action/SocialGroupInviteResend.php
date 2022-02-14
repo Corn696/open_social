@@ -71,7 +71,7 @@ class SocialGroupInviteResend extends ViewsBulkOperationsActionBase implements C
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     return new static(
       $configuration,
       $plugin_id,
@@ -87,7 +87,7 @@ class SocialGroupInviteResend extends ViewsBulkOperationsActionBase implements C
    * @throws \Drupal\Core\TempStore\TempStoreException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function execute($entity = NULL) {
+  public function execute($entity = NULL): void {
     // This action allows to resend invitations for each member.
     $time = $this->time->getCurrentTime();
 

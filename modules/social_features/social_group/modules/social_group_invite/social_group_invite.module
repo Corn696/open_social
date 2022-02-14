@@ -805,7 +805,7 @@ function social_group_invite_entity_operation_alter(array &$operations, EntityIn
       'url' => Url::fromRoute('social_group_invite.resend_invite',
         [
           'group' => $entity->getGroup()->id(),
-          'group_content' => $entity->id()
+          'group_content' => $entity->id(),
         ]
       ),
     ];
