@@ -116,7 +116,7 @@
             },
             "drupal/private_message": {
                 "3248258 - Coding standard issue at PrivateMessageService": "https://www.drupal.org/files/issues/2021-11-08/coding-standard-3248258-2.patch",
-                "Move message notify to a submodule so it doesn't crashes on update": "https://git.drupalcode.org/project/private_message/-/merge_requests/31.diff"
+                "Move message notify to a submodule so it doesn't crashes on update": "https://www.drupal.org/files/issues/2022-02-15/social-move-message-notify-to-submodule-3264287-4.patch"
             },
             "drupal/search_api": {
                 "Ensure field definition allowed values callbacks are used for field filter callbacks": "https://www.drupal.org/files/issues/2020-06-03/2949022-12--views_filter_options_callback.patch",
