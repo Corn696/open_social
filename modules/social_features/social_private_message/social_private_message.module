@@ -685,7 +685,7 @@ function social_private_message_private_message_view_alter(array &$build, Entity
 /**
  * Implements hook_private_message_notify_exclude().
  */
-function social_private_message_private_message_notify_exclude(PrivateMessageInterface $privateMessage, PrivateMessageThreadInterface $thread, array &$exclude): void {
+function social_private_message_private_message_notify_exclude(PrivateMessageInterface $privateMessage, PrivateMessageThreadInterface $thread, array &$exclude): array {
   // Get all members of this thread.
   /** @var \Drupal\private_message\Entity\PrivateMessageThreadInterface $members */
   $members = $thread->getMembers();
@@ -693,10 +693,12 @@ function social_private_message_private_message_notify_exclude(PrivateMessageInt
   /** @var \Drupal\user\UserInterface $member */
   foreach ($members as $member) {
     if (
-      !($member instanceof UserInterface) ||
+      $member instanceof UserInterface &&
       !$member->hasPermission('use private messaging system')
     ) {
       $exclude[] = $member->id();
     }
   }
+
+  return $exclude;
 }
