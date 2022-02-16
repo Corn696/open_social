@@ -63,7 +63,7 @@ class Entity implements MentionsPluginInterface {
       ->load($mention['target']['entity_id']);
     $output = [];
     $output['value'] = $this->tokenService->replace($settings['value'], [$mention['target']['entity_type'] => $entity]);
-    $output['render_plain'] = !$entity->access('view');
+    $output['render_plain'] = $entity && !$entity->access('view');
     if ($settings['renderlink']) {
       $output['link'] = $this->tokenService->replace($settings['rendertextbox'], [$mention['target']['entity_type'] => $entity]);
     }
